@@ -1,20 +1,29 @@
-def add_one(arr):
-    carry = 1  # Initialize carry as 1 (for +1 operation)
-    result = []
+import java.util.*;
 
-    for digit in reversed(arr):
-        summation = digit + carry
-        result.append(summation % 10)  # Append last digit
-        carry = summation // 10  # Update carry
+public class AddOne {
+    public static List<Integer> addOne(int[] arr) {
+        int num = 1;
+        List<Integer> result = new ArrayList<>();
 
-    if carry:
-        result.append(carry)
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int summation = arr[i] + num;
+            result.add(summation % 10);
+            num = summation / 10;
+        }
 
-    return result[::-1]  # Reverse the result to correct order
+        if (num > 0) {
+            result.add(carry);
+        }
 
+        Collections.reverse(result);
+        return result;
+    }
 
-# Test Cases
-print(add_one([1, 2, 3]))  # [1, 2, 4]
-print(add_one([9, 9]))     # [1, 0, 0]
-print(add_one([0]))        # [1]
-print(add_one([1, 0, 0, 0]))  # [1, 0, 0, 1]
+    public static void main(String[] args) {
+        System.out.println(addOne(new int[]{1, 2, 3}));  
+        System.out.println(addOne(new int[]{9, 9}));     
+        System.out.println(addOne(new int[]{0}));        
+        System.out.println(addOne(new int[]{1, 0, 0, 0})); 
+    }
+}
+
