@@ -1,41 +1,86 @@
-def find_intersection(list1, list2):
-    dummy = Node(0)  # Dummy node for the result list
-    tail = dummy
-    temp1, temp2 = list1.head, list2.head
+class Node {
+    int data;
+    Node next;
 
-    while temp1 and temp2:
-        if temp1.data == temp2.data:
-            tail.next = Node(temp1.data)  # Add common element
-            tail = tail.next
-            temp1 = temp1.next
-            temp2 = temp2.next
-        elif temp1.data < temp2.data:
-            temp1 = temp1.next
-        else:
-            temp2 = temp2.next
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
 
-    result = SinglyLinkedList()
-    result.head = dummy.next
-    return result
+class SinglyLinkedList {
+    Node head;
 
+    public SinglyLinkedList() {
+        this.head = null;
+    }
 
-# Test Cases
-list1 = SinglyLinkedList()
-list1.append(10)
-list1.append(20)
-list1.append(30)
+    public void append(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+    }
 
-list2 = SinglyLinkedList()
-list2.append(15)
-list2.append(20)
-list2.append(30)
+    public void printList() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("Null");
+    }
+}
 
-print("List 1:")
-list1.print_list()
+public class LinkedListIntersection {
+    public static SinglyLinkedList findIntersection(SinglyLinkedList list1, SinglyLinkedList list2) {
+        Node temp1 = list1.head, temp2 = list2.head;
+        SinglyLinkedList result = new SinglyLinkedList();
+        Node dummy = new Node(0);
+        Node tail = dummy;
 
-print("List 2:")
-list2.print_list()
+        while (temp1 != null && temp2 != null) {
+            if (temp1.data == temp2.data) {
+                tail.next = new Node(temp1.data);
+                tail = tail.next;
+                temp1 = temp1.next;
+                temp2 = temp2.next;
+            } else if (temp1.data < temp2.data) {
+                temp1 = temp1.next;
+            } else {
+                temp2 = temp2.next;
+            }
+        }
 
-intersection = find_intersection(list1, list2)
-print("Intersection List:")
-intersection.print_list()
+        result.head = dummy.next;
+        return result;
+    }
+
+    public static void main(String[] args) {
+        SinglyLinkedList list1 = new SinglyLinkedList();
+        list1.append(10);
+        list1.append(20);
+        list1.append(30);
+
+        SinglyLinkedList list2 = new SinglyLinkedList();
+        list2.append(15);
+        list2.append(20);
+        list2.append(30);
+
+        System.out.println("List 1:");
+        list1.printList();
+
+        System.out.println("List 2:");
+        list2.printList();
+
+        SinglyLinkedList intersection = findIntersection(list1, list2);
+        System.out.println("Intersection List:");
+        intersection.printList();
+    }
+}
