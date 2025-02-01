@@ -21,7 +21,7 @@ public class PascalTriangle {
     }
 
     public static void main(String[] args) {
-        int n = 5; // Example input
+        int n = 5; 
         int[][] result = pascal(n);
         printTriangle(result);
     }
